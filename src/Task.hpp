@@ -12,9 +12,9 @@ public:
     template<typename X>
     int32_t setNext(Task<OutputParameter, X> & next);
     
-    virtual int32_t prepare() override { return 0; };
-    virtual int32_t execute() override { return 0; };
-    virtual int32_t finish() override { return 0; };
+    virtual TaskReturn prepare() override { return TaskReturn::OK; };
+    virtual TaskReturn execute() override { return TaskReturn::OK; };
+    virtual TaskReturn finish() override { return TaskReturn::OK; };
     
     MirroredValue<InputParameter> & getInputParameter() { return inputParameter; }
     
@@ -29,5 +29,28 @@ int32_t Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> 
     outputParameter.setReflection(next.getInputParameter());
     return 0;
 };
+
+
+template<void, typename OutputParameter>
+class Task<void, OutputParameter>: public AbstractTask {
+public:
+    template<typename X>
+    int32_t setNext(Task<OutputParameter, X> & next);
+    
+    virtual TaskReturn prepare() override { return TaskReturn::OK; };
+    virtual TaskReturn execute() override { return TaskReturn::OK; };
+    virtual TaskReturn finish() override { return TaskReturn::OK; };
+protected:
+    MirroredValue<OutputParameter> outputParameter;    
+};
+
+// Changing this to <void, outputparameter>
+template<typename InputParameter, typename OutputParameter>
+template<typename T>
+int32_t Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
+    outputParameter.setReflection(next.getInputParameter());
+    return 0;
+};
+
 
 #endif

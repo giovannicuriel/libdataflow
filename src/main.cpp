@@ -5,27 +5,27 @@
 
 class Source : public Task<int, std::tuple<int, int>> {
 public:
-    int32_t execute() override { 
+    TaskReturn execute() override { 
         std::get<0>(outputParameter()) = 10;
         std::get<1>(outputParameter()) = 40;
-        return 0;
+        return TaskReturn::OK;
     };
 };
 
 
 class Sum : public Task<std::tuple<int, int>, int> {
 public:
-    int32_t execute() override { 
+    TaskReturn execute() override { 
         outputParameter = std::get<0>(*inputParameter) + std::get<1>(*inputParameter);
-        return 0;
+        return TaskReturn::OK;
     };
 };
 class Printer : public Task<int, int> {
 public:
     Printer() = default;
-    int32_t execute() override { 
+    TaskReturn execute() override { 
         std::cout << "Results: " << *inputParameter << std::endl;
-        return 0;
+        return TaskReturn::OK;
     };
 };
 
