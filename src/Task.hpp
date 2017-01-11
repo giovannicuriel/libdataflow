@@ -4,8 +4,9 @@
 #include "AbstractTask.hpp"
 #include "MirroredValue.hpp"
 
-
-
+/**
+ * Class representing an abstract task that has input and output parameters
+ */
 template<typename InputParameter, typename OutputParameter>
 class Task: public AbstractTask {
 public:
