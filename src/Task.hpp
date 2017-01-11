@@ -10,6 +10,13 @@
 template<typename InputParameter, typename OutputParameter>
 class Task: public AbstractTask {
 public:
+    /**
+     * Set the next task in the queue.
+     * The current output parameter must be the same type as the input parameter
+     * from the next one.
+     * @param next The next task.
+     * @return TaskReturn::OK
+     */
     template<typename X>
     int32_t setNext(Task<OutputParameter, X> & next);
 
@@ -28,7 +35,7 @@ template<typename InputParameter, typename OutputParameter>
 template<typename T>
 int32_t Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
     outputParameter.setReflection(next.getInputParameter());
-    return 0;
+    return TaskReturn::OK;
 };
 
 
