@@ -2,6 +2,7 @@
 #include <tuple>
 #include "Task.hpp"
 #include "MirroredValue.hpp"
+#include "DefaultPipelineBuilder.hpp"
 
 class Source : public Task<int, std::tuple<int, int>> {
 public:
@@ -34,25 +35,24 @@ int main(void) {
     Source t1;
     Sum t2;
     Printer t3;
-    
+
     t1.setNext(t2);
     t2.setNext(t3);
-    
-    t1.prepare();
-    t1.execute();
-    t1.finish();
-    t2.prepare();
-    t2.execute();
-    t2.finish();
-    t3.prepare();
-    t3.execute();
-    t3.finish();
-    
+
+    PipelineBuilderInterface * builder = new DefaultPipelineBuilder();
+    builder->addTask(&t1);
+    builder->addTask(&t2);
+    builder->addTask(&t3);
+
+    PipelineInterface * pipeline = builder->build();
+
+    pipeline->start();
+
     MirroredValue<int> v1, v2;
     v1.setReflection(v2);
-    
+
     v1 = 10;
     std::cout << *v2 << std::endl;
-    
+
     return 0;
 }

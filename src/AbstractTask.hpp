@@ -28,30 +28,30 @@ public:
      * @return The results of this preparation.
      */
     virtual TaskReturn prepare() = 0;
-    
-    
+
+
     /**
      * Actually do what this task is intend to do.
      * @return Status of execution.
      */
     virtual TaskReturn execute() = 0;
-    
+
     /**
      * Finish the execution of this task.
      * This method is executed whether the task has succeeded or not.
      * @return Status of execution of this method.
      */
     virtual TaskReturn finish() = 0;
-    
+
     /**
      * Undo everything that this task did.
-     * 
+     *
      * In case of rolling back, this method will be called. This time
-     * no extra method should not be called (such as prepare() or 
+     * no extra method should not be called (such as prepare() or
      * finish()
-     * 
+     *
      * @return Status of execution.
-     */ 
+     */
     virtual TaskReturn undo() { return TaskReturn::OK; }
 };
 

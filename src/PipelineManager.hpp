@@ -1,17 +1,15 @@
 #ifndef PIPELINE_MANAGER_HPP
 #define PIPELINE_MANAGER_HPP
 
+#include "PipelineInterface.hpp"
 
-
-// This class should be responsible for creating threads and managing all
-// errors that might appear during this execution.
 class PipelineManager {
 public:
     PipelineManager();
     virtual ~PipelineManager();
 
 
-    int addPipeline(Pipeline * pipeline);
+    int addPipeline(PipelineInterface * pipeline);
     int startPipeline();
 
     int resumePipeline(uuit_t uuid);

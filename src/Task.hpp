@@ -18,7 +18,7 @@ public:
      * @return TaskReturn::OK
      */
     template<typename X>
-    int32_t setNext(Task<OutputParameter, X> & next);
+    TaskReturn setNext(Task<OutputParameter, X> & next);
 
     virtual TaskReturn prepare() override { return TaskReturn::OK; };
     virtual TaskReturn execute() override { return TaskReturn::OK; };
@@ -33,7 +33,7 @@ protected:
 
 template<typename InputParameter, typename OutputParameter>
 template<typename T>
-int32_t Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
+TaskReturn Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
     outputParameter.setReflection(next.getInputParameter());
     return TaskReturn::OK;
 };

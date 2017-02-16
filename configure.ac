@@ -14,7 +14,7 @@ AC_PROG_CXX
 AC_PROG_RANLIB
 
 # Checks for libraries.
-
+AC_CHECK_LIB(uuid, uuid_generate_random, [echo "libuuid exists"], [echo "libuuid missing"])
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
