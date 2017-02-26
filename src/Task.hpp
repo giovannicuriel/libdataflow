@@ -15,15 +15,15 @@ public:
      * The current output parameter must be the same type as the input parameter
      * from the next one.
      * @param next The next task.
-     * @return TaskReturn::OK
+     * @Status Status::OK
      */
     template<typename X>
-    TaskReturn setNext(Task<OutputParameter, X> & next);
+    AbstractTask::Status setNext(Task<OutputParameter, X> & next);
 
-    virtual TaskReturn prepare() override { return TaskReturn::OK; };
-    virtual TaskReturn execute() override { return TaskReturn::OK; };
-    virtual TaskReturn finish() override { return TaskReturn::OK; };
-
+    /**
+     * Status a reference to the input parameter
+     * @Status a reference to the input parameter.
+     */
     MirroredValue<InputParameter> & getInputParameter() { return inputParameter; }
 
 protected:
@@ -33,10 +33,10 @@ protected:
 
 template<typename InputParameter, typename OutputParameter>
 template<typename T>
-TaskReturn Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
+AbstractTask::Status Task<InputParameter, OutputParameter>::setNext(Task<OutputParameter, T> & next) {
     outputParameter.setReflection(next.getInputParameter());
-    return TaskReturn::OK;
-};
+    return AbstractTask::Status::OK;
+}
 
 
 #endif

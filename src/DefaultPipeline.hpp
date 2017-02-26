@@ -2,14 +2,32 @@
 #define DEFAULT_PIPELINE_HPP
 
 #include <vector>
-#include "ManagedPipelineInterface.hpp"
+#include "PipelineInterface.hpp"
 
-class DefaultPipeline : public ManagedPipelineInterface {
+/**
+ * Default implementation of PipelineInterface
+ */
+class DefaultPipeline : public PipelineInterface {
 public:
-    virtual PipelineReturn addTask(AbstractTask * task) override;
-    virtual PipelineReturn start() override;
-    virtual PipelineReturn resume() override;
-    virtual PipelineReturn rollback() override;
+    /**
+     * @see PipelineInterface::addTask
+     */
+    virtual PipelineInterface::Status addTask(AbstractTask * task) override;
+
+    /**
+     * @see PipelineInterface::addTask
+     */
+    virtual PipelineInterface::Status start() override;
+
+    /**
+     * @see PipelineInterface::addTask
+     */
+    virtual PipelineInterface::Status resume() override;
+
+    /**
+     * @see PipelineInterface::addTask
+     */
+    virtual PipelineInterface::Status rollback() override;
 };
 
 #endif // DEFAULT_PIPELINE_HPP

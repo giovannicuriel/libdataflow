@@ -1,25 +1,31 @@
 #include "DefaultPipeline.hpp"
 
-PipelineReturn DefaultPipeline::addTask(AbstractTask * task) {
+PipelineInterface::Status DefaultPipeline::addTask(AbstractTask * task) {
     mTasks.push_back(task);
-    return PipelineReturn::OK;
+    return PipelineInterface::Status::OK;
 }
 
-PipelineReturn DefaultPipeline::start() {
+PipelineInterface::Status DefaultPipeline::start() {
+    AbstractTask::Status ret;
     for (auto currTask : mTasks) {
-        currTask->execute();
+        ret = currTask->prepare();
+        ret = currTask->execute();
+        if (ret == AbstractTask::Status::LATER) {
+            // Add to the queue.
+        }
+        ret = currTask->finish();
     }
-    return PipelineReturn::OK;
+    return PipelineInterface::Status::OK;
 }
 
-PipelineReturn DefaultPipeline::resume() {
+PipelineInterface::Status DefaultPipeline::resume() {
     //@todo
-    return PipelineReturn::OK;
+    return PipelineInterface::Status::OK;
 }
 
-PipelineReturn DefaultPipeline::rollback() {
+PipelineInterface::Status DefaultPipeline::rollback() {
     //@todo
-    return PipelineReturn::OK;
+    return PipelineInterface::Status::OK;
 }
 
 

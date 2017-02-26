@@ -2,20 +2,21 @@
 #define ABSTRACT_TASK_HPP
 
 /**
- * Possible return values for AbstractTask methods
- */
-enum class TaskReturn {
-    OK,     ///< The method was executed successfully and completely
-    FAILED, ///< The method has failed
-    LATER   ///< The method is OK so far, but it will finish later.
-};
-
-
-/**
- * Class representing a generic task.
+ * @class Class representing a generic task.
  */
 class AbstractTask {
 public:
+
+    /**
+     * Possible Status values for AbstractTask methods
+     */
+    enum class Status {
+        OK,     ///< The method was executed successfully and completely
+        FAILED, ///< The method has failed
+        LATER   ///< The method is OK so far, but it will finish later.
+    };
+
+
     AbstractTask() = default;
     AbstractTask(const AbstractTask &) = delete;
     AbstractTask(AbstractTask &&) = delete;
@@ -25,23 +26,23 @@ public:
     /**
      * Prepare task for execution.
      * This method should be called before 'execute()' method.
-     * @return The results of this preparation.
+     * @Status The results of this preparation.
      */
-    virtual TaskReturn prepare() = 0;
+    virtual Status prepare() = 0;
 
 
     /**
      * Actually do what this task is intend to do.
-     * @return Status of execution.
+     * @Status Status of execution.
      */
-    virtual TaskReturn execute() = 0;
+    virtual Status execute() = 0;
 
     /**
      * Finish the execution of this task.
      * This method is executed whether the task has succeeded or not.
-     * @return Status of execution of this method.
+     * @Status Status of execution of this method.
      */
-    virtual TaskReturn finish() = 0;
+    virtual Status finish() = 0;
 
     /**
      * Undo everything that this task did.
@@ -50,9 +51,9 @@ public:
      * no extra method should not be called (such as prepare() or
      * finish()
      *
-     * @return Status of execution.
+     * @Status Status of execution.
      */
-    virtual TaskReturn undo() { return TaskReturn::OK; }
+    virtual Status undo() = 0;
 };
 
 #endif

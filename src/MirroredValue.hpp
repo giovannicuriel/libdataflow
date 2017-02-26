@@ -74,7 +74,7 @@ template<typename T>
 MirroredValue<T> & MirroredValue<T>::operator=(T value) {
     mValue = value;
     return *this;
-};
+}
 
 template<typename T>
 T & MirroredValue<T>::operator()() {
@@ -87,11 +87,11 @@ T & MirroredValue<T>::operator*() {
         mValue = mReflection->mValue;
     };
     return mValue;
-};
+}
 
 template<typename T>
 void MirroredValue<T>::setReflection(MirroredValue<T> & reflection) {
     mReflection = &reflection;
     reflection.mReflection = this;
-};
+}
 #endif
