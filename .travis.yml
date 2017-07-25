@@ -1,2 +1,4 @@
 language: c++
 script: ./autogen.sh && ./configure && make
+env:
+  CXXFLAGS="-std=c++11"
